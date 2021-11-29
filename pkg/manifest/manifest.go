@@ -316,6 +316,17 @@ func (m *Manifest) ApplyDefaults() error {
 			m.Services[i].Scale.Cooldown = ServiceScaleCooldown{Down: 60, Up: 60}
 		}
 
+		// if cooldown up is set but down is not
+		if m.AttributeSet(fmt.Sprintf("%s.cooldown.up", sp)) && !m.AttributeSet(fmt.Sprintf("%s.cooldown.down", sp)) {
+			m.Services[i].Scale.Cooldown = ServiceScaleCooldown{Down: 60, Up: m.Services[i].Scale.Cooldown.Up}
+		}
+
+		// if cooldown down is set but up is not
+		if m.AttributeSet(fmt.Sprintf("%s.cooldown.down", sp)) && !m.AttributeSet(fmt.Sprintf("%s.cooldown.up", sp)) {
+			m.Services[i].Scale.Cooldown = ServiceScaleCooldown{Down: m.Services[i].Scale.Cooldown.Down, Up: 60}
+		}
+
+
 		if m.Services[i].Scale.Cpu == 0 {
 			m.Services[i].Scale.Cpu = DefaultCpu
 		}
