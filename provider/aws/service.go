@@ -84,9 +84,12 @@ func (p *Provider) ServiceList(app string) (structs.Services, error) {
 			}
 		}
 
+		internal := strings.Join([]string{ms.Name, a.Name, p.Rack, "convox"}, ".")
+
 		s := structs.Service{
-			Name:   ms.Name,
-			Domain: endpoint,
+			Name:     ms.Name,
+			Domain:   endpoint,
+			Internal: internal,
 		}
 
 		if s.Domain != "" {

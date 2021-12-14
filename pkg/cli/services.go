@@ -41,7 +41,7 @@ func Services(rack sdk.Interface, c *stdcli.Context) error {
 		}
 	}
 
-	t := c.Table("SERVICE", "DOMAIN", "PORTS")
+	t := c.Table("SERVICE", "DOMAIN", "PORTS", "INTERNAL")
 
 	for _, s := range ss {
 		ports := []string{}
@@ -56,7 +56,7 @@ func Services(rack sdk.Interface, c *stdcli.Context) error {
 			ports = append(ports, port)
 		}
 
-		t.AddRow(s.Name, s.Domain, strings.Join(ports, " "))
+		t.AddRow(s.Name, s.Domain, strings.Join(ports, " "), s.Internal)
 	}
 
 	return t.Print()
