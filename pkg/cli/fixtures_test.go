@@ -247,11 +247,12 @@ func fxResourceType() structs.ResourceType {
 
 func fxService() *structs.Service {
 	return &structs.Service{
-		Name:   "service1",
-		Count:  1,
-		Cpu:    2,
-		Domain: "domain",
-		Memory: 3,
+		Name:     "service1",
+		Count:    1,
+		Cpu:      2,
+		Domain:   "domain",
+		Internal: "internal",
+		Memory:   3,
 		Ports: []structs.ServicePort{
 			{Balancer: 1, Certificate: "cert1", Container: 2},
 			{Balancer: 1, Certificate: "cert1", Container: 2},
